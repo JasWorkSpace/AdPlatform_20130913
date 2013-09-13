@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<adplatform_config version="4">
+    
+    <!-- Ad max size 5MB -->
+    <int name="AdMaxSize">5242880</int> 
+    
+    
+    
+</adplatform_config>

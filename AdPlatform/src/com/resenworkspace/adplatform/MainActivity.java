@@ -1,6 +1,6 @@
 package com.resenworkspace.adplatform;
 
-import com.Jasworkspace.Jasworkspace.ResenWorkSpaceConfig;
+import com.ResenWorkSpace.ResenWorkSpace.ResenWorkSpaceConfig;
 
 import android.os.Bundle;
 import android.app.Activity;
@@ -20,8 +20,8 @@ public class MainActivity extends Activity {
     	StringBuffer sb = new StringBuffer();
     	ResenWorkSpaceConfig config = ResenWorkSpaceConfig.getInstance();
     	sb.append(config.getWorkSpace()).append("\n")
- 	   .append(config.getEmail()).append("\n")
-    	   .append(config.getWorkSpaceCompany()).append("\n");
+ 	      .append(config.getEmail()).append("\n")
+    	  .append(config.getWorkSpaceCompany()).append("\n");
     	return sb.toString();
     }
 	@Override
