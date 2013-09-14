@@ -8,4 +8,11 @@ public interface ContentRestriction {
 
 	void checkMessageSize(int mCurrentMessageSize, int increaseSize,
 			ContentResolver contentResolver);
+	void checkImageContentType(String contentType) throws ContentRestrictionException;
+
+    void checkAudioContentType(String contentType) throws ContentRestrictionException;
+
+    void checkVideoContentType(String contentType) throws ContentRestrictionException;
+
+    void checkResolution(int width, int height) throws ContentRestrictionException;
 }

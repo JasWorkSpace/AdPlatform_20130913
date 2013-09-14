@@ -3,7 +3,11 @@
     
     <!-- Ad max size 5MB -->
     <int name="AdMaxSize">5242880</int> 
+     
+    <!-- Ad max Width -->
+    <int name="AdMaxWidth">720</int>
     
-    
+    <!-- Ad max Height -->
+    <int name="AdMaxHeight">1280</int>
     
 </adplatform_config>

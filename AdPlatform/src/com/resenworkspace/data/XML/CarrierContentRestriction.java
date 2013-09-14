@@ -72,4 +72,13 @@ public class CarrierContentRestriction implements ContentRestriction{
             throw new ExceedAdSizeException("Exceed message size limitation");
         }
 	}
+
+	@Override
+	public void checkResolution(int width, int height)
+			throws ContentRestrictionException {
+		// TODO Auto-generated method stub
+		if ( (width > AdPlatformConfig.getMaxWidth()) || (height > AdPlatformConfig.getMaxHeight()) ) {
+            throw new ResolutionException("content resolution exceeds restriction.");
+        }
+	}
 }

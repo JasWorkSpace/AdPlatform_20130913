@@ -1,10 +1,16 @@
-package com.resenworkspace.data.XML;
+package com.resenworkspace.adplatform;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
+
+import com.resenworkspace.data.XML.ContentRestriction;
+import com.resenworkspace.data.XML.ContentRestrictionException;
+import com.resenworkspace.data.XML.ContentRestrictionFactory;
+import com.resenworkspace.data.XML.IModelChangedObserver;
+import com.resenworkspace.data.XML.Model;
 
 import android.content.Context;
 
@@ -81,7 +87,7 @@ public class SCENE extends Model implements List<SCENEItem> ,IModelChangedObserv
 		if(mSCENCE.size()>0){
 			for(SCENEItem Item :mSCENCE){
 				Item.unregisterAllModelChangedObservers();
-				 for (IModelChangedObserver observer : Item.mModelChangedObservers) {
+				 for (IModelChangedObserver observer : mModelChangedObservers) {
 					 Item.unregisterModelChangedObserver(observer);
 	             }
 			}

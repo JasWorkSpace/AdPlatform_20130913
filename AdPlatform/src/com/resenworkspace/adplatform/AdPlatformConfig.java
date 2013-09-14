@@ -14,7 +14,8 @@ public class AdPlatformConfig {
 	
     private static String TAG = "AdPlatformConfig";
 	private static int mMAXAdSize = 0;
-	
+	private static int mMaxHeight = 0;
+	private static int mMaxWidth  = 0;
 	public static int getMaxAdSize() {
 		// TODO Auto-generated method stub
 		return mMAXAdSize;
@@ -50,7 +51,11 @@ public class AdPlatformConfig {
                         // int config tags go here
                         if ("AdMaxSize".equalsIgnoreCase(value)) {
                         	mMAXAdSize = Integer.parseInt(text);
-                        } 
+                        }else if ("AdMaxWidth".equalsIgnoreCase(value)) {
+                        	mMaxWidth = Integer.parseInt(text);
+                        }else if ("AdMaxHeight".equalsIgnoreCase(value)) {
+                        	mMaxHeight = Integer.parseInt(text);
+                        }                         
                     } else if ("string".equals(tag)) {
                         // string config tags go here
                         if ("userAgent".equalsIgnoreCase(value)) {
@@ -93,6 +98,16 @@ public class AdPlatformConfig {
             ;
         }
     }
+
+	public static int getMaxHeight() {
+		// TODO Auto-generated method stub
+		return mMaxHeight;
+	}
+
+	public static int getMaxWidth() {
+		// TODO Auto-generated method stub		
+		return mMaxWidth;
+	}
 
 
 }
