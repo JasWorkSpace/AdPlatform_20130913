@@ -1,26 +1,24 @@
-package com.resenworkspace.adplatform;
+package com.resenworkspace.MediaModel;
 
 import java.io.UnsupportedEncodingException;
 
 import com.ResenWorkSpace.ResenWorkSpace.Log;
+import com.resenworkspace.adplatform.MediaHelper;
 import com.resenworkspace.data.Utils.CharacterSets;
 import com.resenworkspace.data.XML.RegionMediaModel;
 import com.resenworkspace.data.XML.RegionModel;
 
 import android.content.Context;
 
-public class TEXTModel extends RegionMediaModel{
+public class TextModel extends RegionMediaModel{
 
 	private static final String TAG = "TEXTModel";
     private CharSequence mText;
     private final int mCharset;
-    private final static String mName = "text";
-    public TEXTModel(Context context,String tag, RegionModel region) {
-        this(context,tag, new byte[0], region);
-    }
+    private final static String mName = "TextModel";    
     
-    public TEXTModel(Context context,String tag, byte[] data, RegionModel region) {
-        super(context, tag ,MediaHelper.MEDIA_TAG_TEXT, mName ,data != null ? data : new byte[0] ,region);
+    public TextModel(Context context,String tag,String contentType, byte[] data, RegionModel region) {
+        super(context, tag ,contentType,MediaHelper.MEDIA_TAG_TEXT, mName ,data != null ? data : new byte[0] ,region);
         mCharset = CharacterSets.UTF_8;
         mText = extractTextFromData(data);
     }

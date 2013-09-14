@@ -17,29 +17,29 @@ import android.content.Context;
 public class SCENE extends Model implements List<SCENEItem> ,IModelChangedObserver{
 	
 	private Context mContext;
-	private int     mCurrentMessageSize = 0; //it use to control mediasize not let the size add to big
+	private int     mCurrentSCENESize = 0; //it use to control mediasize not let the size add to big
 	
 	private final ArrayList<SCENEItem> mSCENCE = new ArrayList<SCENEItem>();
 	
 	
     public void checkMessageSize(int increaseSize) throws ContentRestrictionException {
 	        ContentRestriction cr = ContentRestrictionFactory.getContentRestriction();
-	        cr.checkMessageSize(mCurrentMessageSize, increaseSize, mContext.getContentResolver());
+	        cr.checkMessageSize(mCurrentSCENESize, increaseSize, mContext.getContentResolver());
 	}
     public void increaseMessageSize(int increaseSize) {
         if (increaseSize > 0) {
-            mCurrentMessageSize += increaseSize;
+        	mCurrentSCENESize += increaseSize;
         }
     }
     public void decreaseMessageSize(int decreaseSize) {
         if (decreaseSize > 0) {
-            mCurrentMessageSize -= decreaseSize;
+        	mCurrentSCENESize -= decreaseSize;
         }
     }
 	@Override
 	public boolean add(SCENEItem object) {
 		// TODO Auto-generated method stub
-		int increaseSize = object.getSlideSize();
+		int increaseSize = object.getSCENEItemSize();
         checkMessageSize(increaseSize);
         if ((object != null) && mSCENCE.add(object)) {
             increaseMessageSize(increaseSize);
@@ -57,7 +57,7 @@ public class SCENE extends Model implements List<SCENEItem> ,IModelChangedObserv
 	public void add(int location, SCENEItem object) {
 		// TODO Auto-generated method stub
 		 if (object != null) {
-	            int increaseSize = object.getSlideSize();
+	            int increaseSize = object.getSCENEItemSize();
 	            checkMessageSize(increaseSize);
 	            mSCENCE.add(location, object);
 	            increaseMessageSize(increaseSize);
@@ -92,7 +92,7 @@ public class SCENE extends Model implements List<SCENEItem> ,IModelChangedObserv
 	             }
 			}
 		}
-		mCurrentMessageSize = 0;
+		mCurrentSCENESize = 0;
 		mSCENCE.clear();
         notifyModelChanged(true);		
 	}
@@ -156,7 +156,7 @@ public class SCENE extends Model implements List<SCENEItem> ,IModelChangedObserv
 		// TODO Auto-generated method stub
 		SCENEItem scence = mSCENCE.remove(location);
         if (scence != null) {
-            decreaseMessageSize(scence.getSlideSize());
+            decreaseMessageSize(scence.getSCENEItemSize());
             scence.unregisterAllModelChangedObservers();
             notifyModelChanged(true);
         }
@@ -168,7 +168,7 @@ public class SCENE extends Model implements List<SCENEItem> ,IModelChangedObserv
 		// TODO Auto-generated method stub
 		if ((object != null) && mSCENCE.remove(object)) {
 			SCENEItem scence = (SCENEItem) object;
-            decreaseMessageSize(scence.getSlideSize());
+            decreaseMessageSize(scence.getSCENEItemSize());
             scence.unregisterAllModelChangedObservers();
             notifyModelChanged(true);
             return true;
@@ -194,9 +194,9 @@ public class SCENE extends Model implements List<SCENEItem> ,IModelChangedObserv
 		SCENEItem scence = mSCENCE.get(location);
         if (null != object) {
             int removeSize = 0;
-            int addSize = object.getSlideSize();
+            int addSize = object.getSCENEItemSize();
             if (null != scence) {
-                removeSize = scence.getSlideSize();
+                removeSize = scence.getSCENEItemSize();
             }
             if (addSize > removeSize) {
                 checkMessageSize(addSize - removeSize);
@@ -250,6 +250,13 @@ public class SCENE extends Model implements List<SCENEItem> ,IModelChangedObserv
 			
 		}
 	}
-
-
+	public int getCurrentSCENESize() {
+		// TODO Auto-generated method stub
+		return mCurrentSCENESize;
+	}
+	public void setCurrentSCENESize(int size) {
+		// TODO Auto-generated method stub
+		mCurrentSCENESize = size;
+	}
+	
 }

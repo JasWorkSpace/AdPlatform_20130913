@@ -30,11 +30,11 @@ public interface XMLTAG {
 	 }
 	 
 	 //about Scence
-	 public class SCENCE{
-		 public final static String SCENCE_TAG     = "scence";
-		 public final static String SCENCE_ID      = "id";
-		 public final static String SCENCE_NAME    = "name";
-		 public final static String SCENCE_BKIMGID = "bgImgId";
+	 public class SCENE{
+		 public final static String SCENE_TAG     = "scence";
+		 public final static String SCENE_ID      = "id";
+		 public final static String SCENE_NAME    = "name";
+		 public final static String SCENE_BKIMGID = "bgImgId";
 		 
 		 public class RECT{
 			 public final static String RECT_TAG    = "rect";

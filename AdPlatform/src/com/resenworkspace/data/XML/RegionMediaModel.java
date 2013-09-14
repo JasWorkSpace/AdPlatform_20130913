@@ -9,19 +9,19 @@ public abstract class RegionMediaModel extends MediaModel{
     protected boolean mVisible = true;
 
     public RegionMediaModel(Context context, String tag, Uri uri,
-            RegionModel region) throws AdException {
-        this(context, tag, null, null, uri, region);
+            RegionModel region ) throws AdException {
+        this(context, tag, null, null, "unknow", uri, region);
     }
 
-    public RegionMediaModel(Context context, String tag, String contentType,
+    public RegionMediaModel(Context context, String tag, String contentType, String mediatype,
             String src, Uri uri, RegionModel region) throws AdException {
-        super(context, tag, contentType, src, uri);
+        super(context, tag, contentType, src, uri, mediatype);
         mRegion = region;
     }
 
-    public RegionMediaModel(Context context, String tag, String contentType,
+    public RegionMediaModel(Context context, String tag, String contentType, String mediatype,
             String src, byte[] data, RegionModel region) {
-        super(context, tag, contentType, src, data);
+        super(context, tag, contentType, src, data, mediatype);
         mRegion = region;
     }
 

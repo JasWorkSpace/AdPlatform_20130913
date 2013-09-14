@@ -12,26 +12,25 @@ import android.content.Context;
 import android.content.Intent;
 import android.media.MediaMetadataRetriever;
 import android.net.Uri;
-
 import com.ResenWorkSpace.ResenWorkSpace.Log;
 import com.resenworkspace.adplatform.MediaHelper;
-import com.resenworkspace.data.XML.FILE.FILETYPE;
 
 public class MediaModel extends Model{
   
 	private String TAG ="MediaModel";
 	private final static String MUSIC_SERVICE_ACTION = "com.android.music.musicservicecommand";
 
-    protected Context mContext;
-    protected int mBegin;
-    protected int mDuration;
-    protected String mTag;
-    protected String mSrc;
-    protected String mContentType;
-    private   Uri mUri;
-    private   byte[] mData;
-    protected short mFill;
-    protected int mSize;
+    protected Context mContext;   
+    protected int     mBegin;      //media start time
+    protected int     mDuration;   //media end time
+    protected String  mTag;        //media tag :id
+    protected String  mMediaType;  //media type
+    protected String  mSrc;        // diaplay name 
+    protected String  mContentType;// file type
+    private   Uri     mUri;        //media uri
+    private   byte[] mData;        //media data
+    protected short mFill;         //
+    protected int mSize;           //media size
     protected int mSeekTo;
     protected boolean mMediaResizeable;
 
@@ -45,28 +44,30 @@ public class MediaModel extends Model{
     }
 
     public MediaModel(Context context, String tag, String contentType,
-            String src, Uri uri) throws AdException {
+            String src, Uri uri ,String mediatype) throws AdException {
         mContext = context;
         mTag = tag;
         mContentType = contentType;
         mSrc = src;
         mUri = uri;
+        mMediaType   = mediatype;
         initMediaSize();
         mMediaActions = new ArrayList<MediaAction>();
     }
 
     public MediaModel(Context context, String tag, String contentType,
-            String src, byte[] data) {
+            String src, byte[] data ,String mediatype) {
         if (data == null) {
             throw new IllegalArgumentException("data may not be null.");
         }
 
         mContext = context;
-        mTag = tag;
+        mTag  = tag;
         mContentType = contentType;
-        mSrc = src;
+        mSrc  = src;
         mData = data;
         mSize = data.length;
+        mMediaType   = mediatype;
         mMediaActions = new ArrayList<MediaAction>();
     }
 
@@ -135,10 +136,12 @@ public class MediaModel extends Model{
     /**
      * @return the mSrc
      */
-    public String getSrc() {
-        return mSrc;
+    public String getMediaType() {
+        return mMediaType;
     }
-
+    public String getSrc(){
+    	return mSrc;
+    }
     /**
      * @return the mFill
      */
@@ -171,25 +174,25 @@ public class MediaModel extends Model{
     }
 
     public boolean isText() {
-        return mTag.equals(MediaHelper.MEDIA_TAG_TEXT);
+        return mContentType.equals(MediaHelper.MEDIA_TAG_TEXT);
     }
 
     public boolean isImage() {
-        return mTag.equals(MediaHelper.MEDIA_TAG_IMAGE);
+        return mContentType.equals(MediaHelper.MEDIA_TAG_IMAGE);
     }
 
     public boolean isVideo() {
-        return mTag.equals(MediaHelper.MEDIA_TAG_VIDEO);
+        return mContentType.equals(MediaHelper.MEDIA_TAG_VIDEO);
     }
 
     public boolean isAudio() {
-        return mTag.equals(MediaHelper.MEDIA_TAG_AUDIO);
+        return mContentType.equals(MediaHelper.MEDIA_TAG_AUDIO);
     }
-    public boolean isPPT(){
-    	return mTag.equals(MediaHelper.MEDIA_TAG_PPT);
+    public boolean isPpt(){
+    	return mContentType.equals(MediaHelper.MEDIA_TAG_PPT);
     }
     public boolean isLive(){
-    	return mTag.equals(MediaHelper.MEIDA_TAG_LIVE);
+    	return mContentType.equals(MediaHelper.MEIDA_TAG_LIVE);
     }
     @SuppressLint("NewApi")
 	protected void initMediaDuration() throws AdException {

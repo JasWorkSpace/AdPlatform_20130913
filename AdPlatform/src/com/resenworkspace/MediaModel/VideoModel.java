@@ -1,6 +1,8 @@
-package com.resenworkspace.adplatform;
+package com.resenworkspace.MediaModel;
 
 import com.ResenWorkSpace.ResenWorkSpace.Log;
+import com.resenworkspace.adplatform.MediaControl;
+import com.resenworkspace.adplatform.MediaHelper;
 import com.resenworkspace.data.XML.AdException;
 import com.resenworkspace.data.XML.ContentRestriction;
 import com.resenworkspace.data.XML.ContentRestrictionException;
@@ -24,7 +26,7 @@ public class VideoModel extends RegionMediaModel{
     
 	private String TAG = "VideoModel";
 	private ItemLoadedFuture mItemLoadedFuture;
- 
+    private static String mName = "VideoModel";
    
     public VideoModel(Context context, String tag,Uri uri, RegionModel region)
             throws AdException {
@@ -33,9 +35,9 @@ public class VideoModel extends RegionMediaModel{
         checkContentRestriction();
     }
 
-    public VideoModel(Context context, String tag,String contentType, String src,
+    public VideoModel(Context context, String tag,String contentType, String MediaType,
             Uri uri, RegionModel region) throws AdException {
-        super(context,tag, MediaHelper.MEDIA_TAG_VIDEO, src, uri, region);
+    	super(context,tag, contentType , MediaHelper.MEDIA_TAG_VIDEO , mName, uri, region);
     }
 
     private void initModelFromUri(Uri uri) throws AdException {
