@@ -2,7 +2,7 @@ package com.resenworkspace.adplatform;
 
 public interface XMLTAG {
 
-	 public final static String STARTTAG = "AdPub"; //the start of the xml parser
+	 public final static String AD_TAG = "AdPub"; //the start of the xml parser
 	 
 	 //about file
 	 public class FILE{

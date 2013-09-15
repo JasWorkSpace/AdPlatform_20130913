@@ -28,7 +28,7 @@ public class MediaModel extends Model{
     protected String  mSrc;        // diaplay name 
     protected String  mContentType;// file type
     private   Uri     mUri;        //media uri
-    private   byte[] mData;        //media data
+    private   byte[]  mData;        //media data
     protected short mFill;         //
     protected int mSize;           //media size
     protected int mSeekTo;

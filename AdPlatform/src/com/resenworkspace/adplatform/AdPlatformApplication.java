@@ -6,7 +6,7 @@ import android.app.Application;
 import android.content.res.Configuration;
 
 public class AdPlatformApplication extends Application{
-
+    
 	private static AdPlatformApplication AdApp;
 	synchronized public static AdPlatformApplication getApplication() {
         return AdApp;

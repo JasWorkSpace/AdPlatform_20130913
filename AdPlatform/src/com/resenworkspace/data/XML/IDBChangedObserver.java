@@ -1,0 +1,10 @@
+package com.resenworkspace.data.XML;
+
+
+
+public interface IDBChangedObserver {
+    
+	void onDBChanged(DB db , String ItemID);
+	
+	void onAdPubChanged();
+}
