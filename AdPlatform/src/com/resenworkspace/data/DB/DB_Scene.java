@@ -3,9 +3,10 @@ package com.resenworkspace.data.DB;
 import android.database.Cursor;
 
 import com.resenworkspace.adplatform.XMLTAG;
+import com.resenworkspace.data.XML.DB;
 import com.resenworkspace.data.XML.MySQLiteOpenHelper;
 
-public class DB_Scene {
+public class DB_Scene extends DB{
 	public static String TABLE_SCENE = XMLTAG.SCENE.SCENE_TAG;
 	//Interface of DB tag
     public static String TABLE = TABLE_SCENE; 

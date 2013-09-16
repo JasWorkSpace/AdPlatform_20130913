@@ -9,4 +9,6 @@ public interface IDBChangedObserver {
 	void onAdPubChanged();
 	
 	void onAdPubChanged(String AdPub);
+	
+	void onDownLoadChanged(String AdPub ,String FileId);
 }

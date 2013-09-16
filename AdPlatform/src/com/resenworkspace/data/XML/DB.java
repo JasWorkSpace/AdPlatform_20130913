@@ -37,4 +37,10 @@ public class DB {
             observer.onAdPubChanged(AdPub);
         }    	
     }
+    
+    protected void notifyDownLoadChanged(String AdPub,String FileId){
+    	for (IDBChangedObserver observer : mDBChangedObservers) {
+            observer.onDownLoadChanged(AdPub, FileId);
+        }
+    }
 }
