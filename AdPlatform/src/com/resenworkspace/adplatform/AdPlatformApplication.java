@@ -1,6 +1,5 @@
 package com.resenworkspace.adplatform;
 
-import com.resenworkspace.data.DB.DBManager;
 import com.resenworkspace.layout.LayoutManager;
 
 import android.app.Application;
@@ -24,7 +23,6 @@ public class AdPlatformApplication extends Application{
 		// TODO Auto-generated method stub
 		AdPlatformConfig.init(this);
 		LayoutManager.init(this);
-		DBManager.Init(this);
 	}
 	
 	@Override

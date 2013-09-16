@@ -32,9 +32,4 @@ public class DB {
         }
     }
     
-    protected void notifyDBAdPubChanged(String AdPub){
-    	for (IDBChangedObserver observer : mDBChangedObservers) {
-            observer.onAdPubChanged(AdPub);
-        }    	
-    }
 }
