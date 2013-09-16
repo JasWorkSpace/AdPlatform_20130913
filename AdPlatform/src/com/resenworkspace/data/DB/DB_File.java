@@ -69,7 +69,7 @@ public class DB_File extends DB{
      }
      
      public Cursor getFile(String FileId){
-    	 String[] selectionArgs ={String.valueOf(FileId).trim()};
+    	 String[] selectionArgs ={FileId};
     	 return MySQLiteOpenHelper.getInstance().select(TABLE_FILE, FILE_CHECK , XMLTAG.FILE.ITEM.ITEM_NAME+"=?", selectionArgs, null, null, null);
      }
      public String getFileDBIdByID(String FileId){
@@ -83,13 +83,31 @@ public class DB_File extends DB{
      public boolean setFile(String[] File){
     	 if(File==null || File.length<INDEX_FILE_MAX)return false;
     	 boolean resoult=false;
-    	 String FileId = File[0];
-    	 if(CheckFileExist(FileId)){
-    		 if(MySQLiteOpenHelper.getInstance().update(TABLE_FILE, FILE_INSERT, File, "u_id"+"=?", new String []{getFileDBIdByID(FileId)+" "} )==1)resoult=true;
+    	 String AdPub  = File[0];
+    	 if(!DB_AdPub.CheckAdPubAviable(AdPub))return false;
+    	 String FileId = File[1];
+    	 if(CheckAdPubFileExist(AdPub,FileId)){
+    		 if(MySQLiteOpenHelper.getInstance().update(TABLE_FILE, FILE_INSERT, File, DB_ID+"=?", new String []{getFileDBIdByIDAndAdPub(AdPub,FileId)+" "} )==1)resoult=true;
     	 }else{
     		 if(MySQLiteOpenHelper.getInstance().insert(TABLE_FILE, FILE_INSERT, File)==1)resoult=true;
     	 }
     	 notifyDBChanged(FileId);
     	 return resoult;
+     }
+     public Cursor getFile(String AdPub,String FileId){
+    	 if(DB_AdPub.CheckAdPubAviable(AdPub))return null;
+    	 String[] selectionArgs ={AdPub,FileId};
+    	 return MySQLiteOpenHelper.getInstance().select(TABLE_FILE, FILE_CHECK , XMLTAG.AD_TAG+"=? and "+XMLTAG.FILE.ITEM.ITEM_NAME+"=?", selectionArgs, null, null, null);
+     }
+     private String getFileDBIdByIDAndAdPub(String AdPub,String FileId){
+    	 Cursor c = getFile(AdPub,FileId);
+    	 if(c.moveToFirst()){
+    		 return c.getString(INDEX_DB_ID);
+    	 }
+    	 return null;
+     } 
+     private boolean CheckAdPubFileExist(String AdPub , String FileId){
+    	 Cursor c = getFile(AdPub,FileId);
+    	 return c.moveToFirst();
      }
 }

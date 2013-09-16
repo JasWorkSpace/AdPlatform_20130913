@@ -1,7 +1,7 @@
-package com.resenworkspace.data.DB;
+package com.resenworkspace.data.XML;
 
-import com.resenworkspace.data.XML.DB;
-import com.resenworkspace.data.XML.MySQLiteOpenHelper;
+import com.resenworkspace.data.DB.DB_AdPub;
+import com.resenworkspace.data.DB.DB_File;
 
 import android.content.Context;
 

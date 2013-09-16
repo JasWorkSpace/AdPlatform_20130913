@@ -7,4 +7,6 @@ public interface IDBChangedObserver {
 	void onDBChanged(DB db , String ItemID);
 	
 	void onAdPubChanged();
+	
+	void onAdPubChanged(String AdPub);
 }
