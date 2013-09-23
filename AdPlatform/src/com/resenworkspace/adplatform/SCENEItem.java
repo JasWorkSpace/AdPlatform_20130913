@@ -20,6 +20,7 @@ import com.resenworkspace.data.XML.Event;
 import com.resenworkspace.data.XML.IModelChangedObserver;
 import com.resenworkspace.data.XML.MediaModel;
 import com.resenworkspace.data.XML.Model;
+import com.resenworkspace.data.XML.RegionModel;
 
 
 public class SCENEItem extends Model implements List<MediaModel>{
@@ -35,26 +36,33 @@ public class SCENEItem extends Model implements List<MediaModel>{
 	 private MediaModel mPpt;
 	 private MediaModel mLive;
 	 
-	 private boolean mCanAddMediaModel = true;
-	 
+	 private boolean mCanAddText  = true;
+	 private boolean mCanAddImage = true;
+	 private boolean mCanAddAudio = true;
+	 private boolean mCanAddVideo = true;
+	 private boolean mCanAddPpt   = true;
+	 private boolean mCanAddLive  = true;
 	 
 	 private int     mDuration;
 	 private boolean mVisible = true;
 	 private short   mFill;
 	 private int     mSCENEItemSize;
 	 private SCENE   mParent;
-	    
-	 public SCENEItem(SCENE scene) {
-	      this(DEFAULT_SLIDE_DURATION, scene);
+	 
+	 protected RegionModel mRegion;    
+	 public SCENEItem(SCENE scene,RegionModel region) {
+	      this(DEFAULT_SLIDE_DURATION, scene,region);
 	 }
-
-	 public SCENEItem(int duration, SCENE scene) {
+     
+	 public SCENEItem(int duration, SCENE scene ,RegionModel region) {
 	      mDuration = duration;
 	      mParent   = scene;
+	      mRegion   = region;
 	 }
-	 public SCENEItem(int duration, ArrayList<MediaModel> mediaList) {
+	 public SCENEItem(int duration, ArrayList<MediaModel> mediaList,RegionModel region) {
 	      mDuration = duration;
 	      int maxDur = 0;
+	      mRegion   = region;
 	      for (MediaModel media : mediaList) {
 	          internalAdd(media);
 	          int mediaDur = media.getDuration();
@@ -157,53 +165,56 @@ public class SCENEItem extends Model implements List<MediaModel>{
 	        if (media.isText()) {
 	            String contentType = media.getContentType();
 	            if (TextUtils.isEmpty(contentType) || MediaHelper.MEDIA_TAG_TEXT.equals(contentType)) {
-	                internalAddOrReplace(mText, media);
-	                mText = media;
+	            	if(mCanAddText){
+		                internalAddOrReplace(mText, media);
+		                mText = media;
+		                mCanAddText = false;
+	            	}
 	            } else {
 	                Log.i(TAG, "[SCENEItem] content type " + media.getContentType() +
 	                        " isn't supported (as text)");
 	            }
 	        } else if (media.isImage()) {
-	            if (mCanAddMediaModel) {
+	            if (mCanAddImage) {
 	                internalAddOrReplace(mImage, media);
 	                mImage = media;
-	                mCanAddMediaModel = false;
+	                mCanAddImage = false;
 	            } else {
 	                Log.w(TAG, "[SCENEItem] content type " + media.getContentType() +
 	                    " - can't add image in this state");
 	            }
 	        } else if (media.isAudio()) {
-	            if (mCanAddMediaModel) {
+	            if (mCanAddAudio) {
 	                internalAddOrReplace(mAudio, media);
 	                mAudio = media;
-	                mCanAddMediaModel = false;
+	                mCanAddAudio = false;
 	            } else {
 	                Log.w(TAG, "[SCENEItem] content type " + media.getContentType() +
 	                    " - can't add audio in this state");
 	            }
 	        } else if (media.isVideo()) {
-	            if (mCanAddMediaModel) {
+	            if (mCanAddVideo) {
 	                internalAddOrReplace(mVideo, media);
 	                mVideo = media;
-	                mCanAddMediaModel = false;
+	                mCanAddVideo = false;
 	            } else {
 	                Log.w(TAG, "[SCENEItem] content type " + media.getContentType() +
 	                    " - can't add video in this state");
 	            }
 	        } else if (media.isPpt()) {
-	            if (mCanAddMediaModel) {
+	            if (mCanAddPpt) {
 	                internalAddOrReplace(mPpt, media);
 	                mPpt = media;
-	                mCanAddMediaModel = false;
+	                mCanAddPpt = false;
 	            } else {
 	                Log.w(TAG, "[SCENEItem] content type " + media.getContentType() +
 	                    " - can't add ppt in this state");
 	            }
 	        } else if (media.isLive()) {
-	            if (mCanAddMediaModel) {
+	            if (mCanAddLive) {
 	                internalAddOrReplace(mLive, media);
 	                mLive = media;
-	                mCanAddMediaModel = false;
+	                mCanAddLive = false;
 	            } else {
 	                Log.w(TAG, "[SCENEItem] content type " + media.getContentType() +
 	                    " - can't add live in this state");
@@ -248,18 +259,23 @@ public class SCENEItem extends Model implements List<MediaModel>{
 	        if (mMedia.remove(object)) {
 	            if (object instanceof TextModel) {
 	                mText = null;
+	                mCanAddText = true;
 	            } else if (object instanceof ImageModel) {
 	                mImage = null;
+	                mCanAddImage = true;
 	            } else if (object instanceof AudioModel) {
 	                mAudio = null;
+	                mCanAddAudio = true;
 	            } else if (object instanceof VideoModel) {
 	                mVideo = null;
-	            } else if (object instanceof VideoModel) {
+	                mCanAddVideo = true;
+	            } else if (object instanceof PptModel) {
 	            	mPpt   = null;
-	            } else if (object instanceof VideoModel) {
+	            	mCanAddPpt  = true;
+	            } else if (object instanceof LiveModel) {
 	                mLive  = null;
+	                mCanAddLive = true;
 	            }
-	            mCanAddMediaModel = true;
 	            // If the media is resizable, at this point consider it to be zero length.
 	            // Just before we send the slideshow, we take the remaining space in the
 	            // slideshow and equally allocate it to all the resizeable media items and resize them.
@@ -386,7 +402,12 @@ public class SCENEItem extends Model implements List<MediaModel>{
             mPpt   = null;
             mLive  = null;
             
-            mCanAddMediaModel = true;
+            mCanAddText  = true;
+       	    mCanAddImage = true;
+       	    mCanAddAudio = true;
+       	    mCanAddVideo = true;
+       	    mCanAddPpt   = true;
+       	    mCanAddLive  = true;
             
             notifyModelChanged(true);
         }

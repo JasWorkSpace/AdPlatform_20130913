@@ -19,7 +19,7 @@ public class DB_AdPub extends DB{
 	   	 }
 	   	 return sInstance;
     }
-    public static final String DOWNLOAD_STATE   = "state";
+    
     
     public static String DB_ID = "adpub_id";
     public static int  INDEX_DB_ID       = 0;
@@ -28,12 +28,12 @@ public class DB_AdPub extends DB{
     private static int INDEX_ADPUB_MAX   = 2;
     public static String[] ADPUB_INSERT = {
 	   	 XMLTAG.AD_TAG,
-	   	 DOWNLOAD_STATE
+	   	 DownloadUtils.DOWNLOAD_STATE
     };
     public static String[] ADPUB_CHECK = {
 		 DB_ID,
 		 XMLTAG.AD_TAG,
-		 DOWNLOAD_STATE 		 
+		 DownloadUtils.DOWNLOAD_STATE 		 
     };
     public static  String[] ADPUB_TYPE={
 	    "INTEGER PRIMARY KEY AUTOINCREMENT", 
@@ -76,6 +76,7 @@ public class DB_AdPub extends DB{
 		}
 	}
 	public boolean IsAdPubDBExist(String adPub){
+		if(!CheckAdPubAviable(adPub))return false;
 		Cursor c = getAdPubDB(adPub);
 		return c.moveToFirst();
 	}
@@ -107,5 +108,11 @@ public class DB_AdPub extends DB{
 	   	 notifyDBAdPubChanged(adPub);
 	   	 return resoult;
     } 
-	
+	public boolean DelAdpub(String adPub){
+		boolean resoult=true;
+		if(IsAdPubDBExist(adPub)){		
+			if(MySQLiteOpenHelper.getInstance().delete(TABLE_AD, DB_ID+"=?", new String []{getAdPubDBIdByAdPub(adPub)+" "} )==1)resoult=true;
+		}
+		return resoult;
+	}
 }

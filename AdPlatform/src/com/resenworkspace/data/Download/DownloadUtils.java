@@ -6,6 +6,8 @@ public class DownloadUtils {
     public static final String DOWNLOAD_LOADING = "loading";
     public static final String DOWNLOAD_WAITING = "waiting";
     
+    public static final String DOWNLOAD_STATE   = "state";
+    
     public static boolean CheckDownloadStateAviable(String state){
     	if(state == null)return false;
     	if(DOWNLOAD_FINISH.equals(state)

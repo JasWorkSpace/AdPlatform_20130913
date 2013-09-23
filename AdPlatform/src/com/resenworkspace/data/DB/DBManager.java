@@ -3,7 +3,6 @@ package com.resenworkspace.data.DB;
 import android.content.Context;
 
 import com.resenworkspace.data.XML.AdPlatformDataBaseHelper;
-import com.resenworkspace.data.XML.MySQLiteOpenHelper;
 
 public class DBManager {
     
@@ -16,5 +15,8 @@ public class DBManager {
 	}
 	public DBManager(Context context){
 		AdPlatformDataBaseHelper.Init(context);
+	}
+	public boolean DelAdPub(String AdPub){
+		return true;
 	}
 }

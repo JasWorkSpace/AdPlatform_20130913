@@ -19,7 +19,7 @@ public class AudioModel extends RegionMediaModel{
 
     public AudioModel(Context context, String tag,String contentType,
             Uri uri, RegionModel region) throws AdException {
-        super(context,tag, contentType , MediaHelper.MEDIA_TAG_VIDEO , mName, uri, region);
+        super(context,tag, contentType , MediaHelper.MEDIA_TAG_AUDIO , mName, uri, region);
     }
 
 }
